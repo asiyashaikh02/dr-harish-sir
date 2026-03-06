@@ -2,7 +2,11 @@ import React from 'react';
 import { Award, BookOpen, Sparkles, Quote as QuoteIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const FOUNDER_IMAGE = "https://media.licdn.com/dms/image/v2/D5622AQG5utms66YaZA/feedshare-shrink_800/B56ZtftewPHgAk-/0/1766837318871?e=1768435200&v=beta&t=dbjotl3wnMzyA4KDa5B04dUHDkIdUqVDkO8HHznePlw";
+/** * UNIVERSAL IMAGE FIX: 
+ * In React, files in the 'public' folder are served from the root path.
+ * Changed "public\\founder.jpg" to "/founder.jpg"
+ */
+const FOUNDER_IMAGE = "/founder.jpg";
 const ASSET_EXECUTIVE_DESK = "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2940&auto=format&fit=crop";
 
 const About: React.FC = () => {
@@ -16,7 +20,10 @@ const About: React.FC = () => {
     >
       {/* Narrative Header with Background */}
       <div className="relative border-b border-notion-border py-32 lg:py-48 overflow-hidden bg-brand-navy">
-        <div className="absolute inset-0 opacity-15 bg-cover bg-center grayscale pointer-events-none" style={{ backgroundImage: `url('${ASSET_EXECUTIVE_DESK}')` }}></div>
+        <div 
+          className="absolute inset-0 opacity-15 bg-cover bg-center grayscale pointer-events-none" 
+          style={{ backgroundImage: `url('${ASSET_EXECUTIVE_DESK}')` }}
+        ></div>
         <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -47,14 +54,18 @@ const About: React.FC = () => {
             >
               <div className="bg-white p-5 lg:p-8 rounded-[80px] shadow-soft border border-notion-border relative group overflow-hidden">
                 <div className="aspect-[4/5] w-full rounded-[64px] overflow-hidden relative shadow-2xl bg-slate-50">
-                  <div 
-                    className="absolute inset-0 bg-cover bg-no-repeat transition-transform duration-[2.5s] group-hover:scale-110"
-                    style={{ 
-                      backgroundImage: `url('${FOUNDER_IMAGE}')`,
-                      backgroundPosition: '75% center'
-                    }}
-                  ></div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/50 via-transparent to-transparent"></div>
+                  
+                  {/* FIX: Using <img> tag with object-cover ensures the image fills 
+                      the container perfectly without distortion.
+                  */}
+                  <img 
+                    src={FOUNDER_IMAGE}
+                    alt="Dr. Harish Kamaraj"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2.5s] group-hover:scale-110"
+                    style={{ objectPosition: 'center 20%' }} 
+                  />
+                  
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/50 via-transparent to-transparent pointer-events-none"></div>
                 </div>
 
                 <div className="mt-12 p-6">
@@ -134,3 +145,7 @@ const About: React.FC = () => {
 };
 
 export default About;
+
+
+
+
